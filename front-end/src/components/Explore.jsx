@@ -80,13 +80,13 @@ const Explore = (props) => {
           <div className='col-12 col-sm-6'>
             <form method='POST' className='admin-form'>
               <div className='form-group'>
-                  <label>State</label>
-                  <input type="text" className="form-control" name="state" placeholder="Enter State" 
+                  <label>County</label>
+                  <input type="text" className="form-control" name="state" placeholder="Enter County" 
                   autoComplete="off" value={explore.state} onChange={onChangeFunc}/>
               </div>
               <div className='form-group'>
-                  <label>District</label>
-                  <input type="text" className="form-control" name="district" placeholder="Enter district" 
+                  <label>Sub-County</label>
+                  <input type="text" className="form-control" name="district" placeholder="Enter Sub-County" 
                   autoComplete="off" value={explore.district} onChange={onChangeFunc}/>
               </div>
             </form>
@@ -99,8 +99,8 @@ const Explore = (props) => {
                   autoComplete="off" value={explore.city} onChange={onChangeFunc}/>
               </div>
               <div className='form-group'>
-                  <label>Survey number</label>
-                  <input type="text" className="form-control" name="surveyNo" placeholder="Enter survey number" 
+                  <label>Title deed</label>
+                  <input type="text" className="form-control" name="surveyNo" placeholder="Enter Title Deed" 
                   autoComplete="off" value={explore.surveyNo} onChange={onChangeFunc}/>
               </div>
             </form>

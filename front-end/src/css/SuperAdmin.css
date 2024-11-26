@@ -3,11 +3,18 @@
     flex-direction: row;
     align-items: center;
     margin-top: 2rem;
+    background-color: hsl(120, 75%, 45%);
+
 }
+body{
+    background-color: black;
+}
+
 
 .superAdmin-p{
     font-size: 1.5rem;
     margin-top: 2rem;
+    color: white;
 }
 
 .admin-form{
@@ -19,6 +26,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 0.6rem;
+    color: white;
 }
 
 .form-control{
@@ -35,7 +43,7 @@
     border-radius: 5px;
     outline: none !important;
     border: none !important;
-    background-color: rgb(30, 152, 223);
+    background-color: hsl(120, 75%, 45%);
     color: white;
     cursor: pointer;
 }

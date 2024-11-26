@@ -88,10 +88,10 @@ useEffect(() =>{
           <div className='container mainDiv'>
                 <div className='landingPage-heading-div'>
                     <img src={emblem} alt="emblem" className="emblem" />
-                    <h1>Decentralized Land Registration</h1>
+                    <h1>Decentralized Housing Registration</h1>
                 </div>
 
-                <p className='welcome-p'>Welcome to online Land Registration and transfer of entitlement</p>
+                <p className='welcome-p'>Welcome to online Housing Registration and transfer of entitlement</p>
 
                 <button className='landingPage-btn' onClick={connectToEthereum}>Connect to Ethereum</button>
             </div>

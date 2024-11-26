@@ -13,7 +13,7 @@ const Navbar = (props) => {
         (props.isAdmin) ? 
           <>
             <li className={(isActive) ? "active nav-item": "nav-item"}>
-                <NavLink className="nav-link" exact activeClassName="active" to="/admin/">Register Land<span className="sr-only">(current)</span></NavLink>
+                <NavLink className="nav-link" exact activeClassName="active" to="/admin/">Register House<span className="sr-only">(current)</span></NavLink>
             </li>
             <li className="nav-item">
                 <NavLink className="nav-link" exact activeClassName="active" to="/admin/explore" onClick={() => setActive(false)}>Explore</NavLink>

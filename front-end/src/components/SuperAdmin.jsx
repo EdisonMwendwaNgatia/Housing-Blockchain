@@ -45,13 +45,13 @@ const SuperAdmin = (props) => {
             autoComplete="off" value={adminData.address} onChange={onChangeFunc}/>
         </div>
         <div className='form-group'>
-            <label>State</label>
-            <input type="text" className="form-control" name="state" placeholder="Enter state" 
+            <label>County</label>
+            <input type="text" className="form-control" name="state" placeholder="Enter county" 
             autoComplete="off" value={adminData.state} onChange={onChangeFunc}/>
         </div>
         <div className='form-group'>
-            <label>District</label>
-            <input type="text" className="form-control" name="district" placeholder="Enter district" 
+            <label>Sub-County</label>
+            <input type="text" className="form-control" name="district" placeholder="Enter Sub-county" 
             autoComplete="off" value={adminData.district} onChange={onChangeFunc}/>
         </div>
         <div className='form-group'>

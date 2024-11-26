@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import DisplayLandDetails from './DisplayLandDetails';
+import DisplayPropertyDetails from './DisplayPropertyDetails';
 
 const Property = (props) => {
 
@@ -22,7 +22,7 @@ const Property = (props) => {
         const ownerOwns = await contract.getOwnerOwns(i, {from: account});  // returns object
         
         // if survey no. != 0
-        if(ownerOwns[3].words[0] != 0){
+        if(ownerOwns[3].words[0] !== 0){
             const landDetails = await contract.getLandDetails(ownerOwns[0], ownerOwns[1], ownerOwns[2], ownerOwns[3].words[0], {
               from: account
             })
@@ -64,8 +64,7 @@ const Property = (props) => {
         :
           landDetailList.map((details, index) =>{
             return(
-              <DisplayLandDetails
-                 
+              <DisplayPropertyDetails
                 key = {index}
                 owner = {details[0]}
                 propertyId = {details[1].words[0]}

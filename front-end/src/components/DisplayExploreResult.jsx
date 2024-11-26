@@ -8,7 +8,7 @@ const DisplayExploreResult = (props) => {
           (
             <div className='explore-result'>
               <p><b>Owner:</b> {props.owner}</p>
-              <p><b>Survey Number:</b> {props.surveyNo}</p>
+              <p><b>Title Deed:</b> {props.surveyNo}</p>
               <p><b>Property ID:</b> {props.propertyId}</p>
               <p><b>Market Value:</b> {props.marketValue}</p>
               <p><b>Size:</b> {props.sqft} sq. ft.</p>

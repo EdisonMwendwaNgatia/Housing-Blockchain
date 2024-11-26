@@ -13,6 +13,7 @@
     border: 2px solid rgb(160, 158, 158);
     padding: 1rem;
     border-radius: 5px;
+    color: white;
 }
 
 .explore-result p{
@@ -48,6 +49,7 @@
 
 .no-result-div{
     margin-top: 4rem;
+    color: white;
 }
 
 .no-result{
