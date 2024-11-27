@@ -39,7 +39,7 @@ const Requests = (props) => {
                 from: account
               })
 
-              const reqDetails = {state: ownerOwns[0], district: ownerOwns[1], city: ownerOwns[2], surveyNo: ownerOwns[3].words[0], index: i, reqNo: j, requester, propertyId}
+              const reqDetails = {county: ownerOwns[0], sub_county: ownerOwns[1], city: ownerOwns[2], deedNo: ownerOwns[3].words[0], index: i, reqNo: j, requester, propertyId}
               reqArr.push(reqDetails);
 
             }
@@ -78,10 +78,10 @@ const Requests = (props) => {
                 requester = {details.requester}
                 index = {details.index}
                 reqNo = {details.reqNo}
-                state = {details.state}
-                district = {details.district}
+                county = {details.county}
+                sub_county = {details.sub_county}
                 city = {details.city}
-                surveyNo = {details.surveyNo}
+                deedNo = {details.deedNo}
                 acceptReq = {handleAcceptReq}
     
               />

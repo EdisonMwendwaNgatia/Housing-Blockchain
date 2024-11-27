@@ -19,15 +19,15 @@ const Requested = (props) => {
 
       for(let i=0; i<_reqIndices; i++){
 
-        const reqLand = await contract.getRequestedLands(i, {from: account});
+        const reqLand = await contract.getRequestedHouses(i, {from: account});
 
-        // if surveyNo. != 0
+        // if deedNo. != 0
         if(reqLand[3].words[0] != 0){
-          const landDetails = await contract.getLandDetails(reqLand[0], reqLand[1], reqLand[2], reqLand[3].words[0], {
+          const landDetails = await contract.getHouseDetails(reqLand[0], reqLand[1], reqLand[2], reqLand[3].words[0], {
             from: account
           })
 
-          const landDetails2 = {state: reqLand[0], district: reqLand[1], city: reqLand[2], surveyNo: reqLand[3].words[0]}
+          const landDetails2 = {county: reqLand[0], sub_county: reqLand[1], city: reqLand[2], deedNo: reqLand[3].words[0]}
           let allDetails = {...landDetails, ...landDetails2}
           reqArr.push(allDetails);
         }
@@ -60,10 +60,10 @@ const Requested = (props) => {
                 index = {details[2].words[0]}
                 marketValue = {details[3].words[0]}
                 sqft = {details[4].words[0]}
-                state = {details.state}
-                district = {details.district}
+                county = {details.county}
+                sub_county = {details.sub_county}
                 city = {details.city}
-                surveyNo = {details.surveyNo}
+                deedNo = {details.deedNo}
 
               />
             )

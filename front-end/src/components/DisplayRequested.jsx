@@ -7,14 +7,14 @@ const DisplayRequested = (props) => {
           <div className='row'>
             <div className='col-12 col-md-6'>
                 <p><b>Owner:</b> {props.owner}</p>
-                <p><b>Survey Number:</b> {props.surveyNo}</p>
+                <p><b>Deed Number:</b> {props.deedNo}</p>
                 <p><b>Property ID:</b> {props.propertyId}</p>
                 <p><b>Market Value:</b> {props.marketValue}</p>
               </div>
               <div className='col-12 col-md-6'>
                 <p><b>Size:</b> {props.sqft} sq. ft.</p>
-                <p><b>County:</b> {props.state}</p>
-                <p><b>Sub-County:</b> {props.district}</p>
+                <p><b>County:</b> {props.county}</p>
+                <p><b>Sub-County:</b> {props.sub_county}</p>
                 <p><b>City:</b> {props.city}</p>
             </div>
           </div>

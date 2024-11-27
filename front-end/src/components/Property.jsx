@@ -23,7 +23,7 @@ const Property = (props) => {
         
         // if survey no. != 0
         if(ownerOwns[3].words[0] !== 0){
-            const landDetails = await contract.getLandDetails(ownerOwns[0], ownerOwns[1], ownerOwns[2], ownerOwns[3].words[0], {
+            const landDetails = await contract.getHouseDetails(ownerOwns[0], ownerOwns[1], ownerOwns[2], ownerOwns[3].words[0], {
               from: account
             })
 
@@ -31,7 +31,7 @@ const Property = (props) => {
               from: account
             })
             
-            const landDetails2 = {state: ownerOwns[0], district: ownerOwns[1], city: ownerOwns[2], surveyNo: ownerOwns[3].words[0], isAvaliable}
+            const landDetails2 = {county: ownerOwns[0], sub_county: ownerOwns[1], city: ownerOwns[2], deedNo: ownerOwns[3].words[0], isAvaliable}
             let allDetails = {...landDetails, ...landDetails2}
             detailsArr.push(allDetails);
         }
@@ -71,10 +71,10 @@ const Property = (props) => {
                 index = {details[2].words[0]}
                 marketValue = {details[3].words[0]}
                 sqft = {details[4].words[0]}
-                state = {details.state}
-                district = {details.district}
+                county = {details.county}
+                sub_county = {details.sub_county}
                 city = {details.city}
-                surveyNo = {details.surveyNo}
+                deedNo = {details.deedNo}
                 available = {details.isAvaliable}
                 markAvailable = {markAvailableFunction}
 

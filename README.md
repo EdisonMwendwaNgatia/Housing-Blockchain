@@ -1,6 +1,6 @@
-# Decentralized Land Registration
+# Decentralized House Registration
 
-Blockchain based Land Registration and transfer of entitlement system where the land ownership and all its details are stored in the Blockchain with zero chances of forgery in ownership.
+Blockchain based House Registration and transfer of entitlement system where the house ownership and all its details are stored in the Blockchain with zero chances of forgery in ownership.
 
 **Demo Video** =
 https://www.youtube.com/watch?v=gnWecTcvbP4

@@ -1,8 +1,8 @@
-.registerLand-maindiv{
+.registerHouse-maindiv{
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
-.registerLand-maindiv .form-control{
+.registerHouse-maindiv .form-control{
     width: 90%;
 }

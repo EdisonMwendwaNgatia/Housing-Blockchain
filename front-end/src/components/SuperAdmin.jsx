@@ -9,7 +9,7 @@ const SuperAdmin = (props) => {
   const account = props.account;
   
   const [adminData, setAdminData] = useState({
-    address:"", state:"", district:"", city:""
+    address:"", county:"", sub_county:"", city:""
   });
 
   const onChangeFunc = (event) =>{
@@ -18,12 +18,12 @@ const SuperAdmin = (props) => {
   }
 
   const handleSubmit = async () =>{
-    await contract.addAdmin(adminData.address, adminData.state, adminData.district, adminData.city, {
+    await contract.addAdmin(adminData.address, adminData.county, adminData.sub_county, adminData.city, {
       from: account
     })
 
     console.log('admin details submitted');
-    setAdminData({address:"", state:"", district:"", city:""});
+    setAdminData({address:"", county:"", sub_county:"", city:""});
   }
 
 
@@ -46,13 +46,13 @@ const SuperAdmin = (props) => {
         </div>
         <div className='form-group'>
             <label>County</label>
-            <input type="text" className="form-control" name="state" placeholder="Enter county" 
-            autoComplete="off" value={adminData.state} onChange={onChangeFunc}/>
+            <input type="text" className="form-control" name="county" placeholder="Enter county" 
+            autoComplete="off" value={adminData.county} onChange={onChangeFunc}/>
         </div>
         <div className='form-group'>
             <label>Sub-County</label>
-            <input type="text" className="form-control" name="district" placeholder="Enter Sub-county" 
-            autoComplete="off" value={adminData.district} onChange={onChangeFunc}/>
+            <input type="text" className="form-control" name="sub_county" placeholder="Enter Sub-county" 
+            autoComplete="off" value={adminData.sub_county} onChange={onChangeFunc}/>
         </div>
         <div className='form-group'>
             <label>City</label>

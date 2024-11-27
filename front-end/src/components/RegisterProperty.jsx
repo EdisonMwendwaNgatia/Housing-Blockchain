@@ -7,7 +7,7 @@ const RegisterProperty = (props) => {
   const account = props.account;
   
   const [landDetails, setLandDetials] = useState({
-    state:"", district:"", city:"", propertyId:"", surveyNo:"", owner:"", marketValue:"", size:""
+    county:"", sub_county:"", city:"", propertyId:"", deedNo:"", owner:"", marketValue:"", size:""
   }) 
 
   const onChangeFunc = (event) =>{
@@ -16,17 +16,17 @@ const RegisterProperty = (props) => {
   }
 
   const handleOnClick = async () =>{
-    await contract.registerLand(landDetails.state, landDetails.district, landDetails.city, landDetails.propertyId, landDetails.surveyNo, landDetails.owner, landDetails.marketValue, landDetails.size, {
+    await contract.registerHouse(landDetails.county, landDetails.sub_county, landDetails.city, landDetails.propertyId, landDetails.deedNo, landDetails.owner, landDetails.marketValue, landDetails.size, {
       from: account
     })
     console.log(landDetails)
-    setLandDetials({state:"", district:"", city:"", propertyId:"", surveyNo:"", owner:"", marketValue:"", size:""})
+    setLandDetials({county:"", sub_county:"", city:"", propertyId:"", deedNo:"", owner:"", marketValue:"", size:""})
   }
 
 
 
   return (
-    <div className='container registerLand-maindiv'>
+    <div className='container registerHouse-maindiv'>
       <div className='row'>
 
          {/* left form */}
@@ -34,13 +34,13 @@ const RegisterProperty = (props) => {
             <form method='POST' className='admin-form'>
                 <div className='form-group'>
                     <label>County</label>
-                    <input type="text" className="form-control" name="state" placeholder="Enter County" 
-                    autoComplete="off" value={landDetails.state} onChange={onChangeFunc}/>
+                    <input type="text" className="form-control" name="county" placeholder="Enter County" 
+                    autoComplete="off" value={landDetails.county} onChange={onChangeFunc}/>
                 </div>
                 <div className='form-group'>
                     <label>Sub-County</label>
-                    <input type="text" className="form-control" name="district" placeholder="Enter Sub-County" 
-                    autoComplete="off" value={landDetails.district} onChange={onChangeFunc}/>
+                    <input type="text" className="form-control" name="sub_county" placeholder="Enter Sub-County" 
+                    autoComplete="off" value={landDetails.sub_county} onChange={onChangeFunc}/>
                 </div>
                 <div className='form-group'>
                     <label>City</label>
@@ -60,8 +60,8 @@ const RegisterProperty = (props) => {
           <form method='POST' className='admin-form'>
             <div className='form-group'>
                 <label>Title Deed</label>
-                <input type="number" className="form-control" name="surveyNo" placeholder="Enter Title Deed" 
-                autoComplete="off" value={landDetails.surveyNo} onChange={onChangeFunc}/>
+                <input type="number" className="form-control" name="deedNo" placeholder="Enter Title Deed" 
+                autoComplete="off" value={landDetails.deedNo} onChange={onChangeFunc}/>
             </div>
             <div className='form-group'>
                 <label>Owner Address</label>

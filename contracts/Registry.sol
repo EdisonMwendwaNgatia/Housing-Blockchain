@@ -9,21 +9,21 @@ contract Registry{
     struct Admin{
         address adminAddress;
         string city;
-        string district;
-        string state;
+        string sub_county;
+        string county;
     }
 
-    struct LandDetails{
+    struct HouseDetails{
         address owner;
         address admin;
         uint256 propertyId;
-        uint surveyNumber;
+        uint deedNumber;
         uint index;
         bool registered;
         uint marketValue;
         bool markAvailable;
         mapping(uint => RequestDetails) requests; // reqNo => RequestDetails
-        uint noOfRequests;  // other users requested to this land
+        uint noOfRequests;  // other users requested to this house
         uint sqft;
     }
 
@@ -35,20 +35,20 @@ contract Registry{
         uint256 contact;
         string residentialAddr;
         uint totalIndices;
-        uint requestIndices;  // this user requested to other lands
+        uint requestIndices;  // this user requested to other houses
     }
 
     struct OwnerOwns{
-        uint surveyNumber;
-        string state;
-        string district;
+        uint deedNumber;
+        string county;
+        string sub_county;
         string city;
     }
     
-    struct RequestedLands{
-        uint surveyNumber;
-        string state;
-        string district;
+    struct RequestedHouses{
+        uint deedNumber;
+        string county;
+        string sub_county;
         string city;
     }
 
@@ -59,8 +59,8 @@ contract Registry{
 
     mapping(address => Admin) public admins;
     mapping(address => mapping(uint => OwnerOwns)) public ownerMapsProperty;  // ownerAddr => index no. => OwnerOwns 
-    mapping(address => mapping(uint => RequestedLands)) public requestedLands;  // ownerAddr => reqIndex => RequestedLands
-    mapping(string => mapping(string => mapping(string => mapping(uint => LandDetails)))) public landDetalsMap; // state => district => city => surveyNo => LandDetails
+    mapping(address => mapping(uint => RequestedHouses)) public requestedHouses;  // ownerAddr => reqIndex => RequestedHouses
+    mapping(string => mapping(string => mapping(string => mapping(uint => HouseDetails)))) public houseDetalsMap; // county => sub_county => city => deedNo => HouseDetails
     mapping(address => UserProfile) public userProfile;
     
 
@@ -69,20 +69,20 @@ contract Registry{
     }
 
     modifier onlyAdmin(){
-        require(admins[msg.sender].adminAddress == msg.sender, "Only admin can Register land");
+        require(admins[msg.sender].adminAddress == msg.sender, "Only admin can Register house");
         _;
     }
 
 
     // SuperAdmin: Registers new admin
-    function addAdmin(address _adminAddr, string memory _state, string memory _district, string memory _city) external{
+    function addAdmin(address _adminAddr, string memory _county, string memory _district, string memory _city) external{
         Admin storage newAdmin = admins[_adminAddr];
         totalAdmins++;
 
         newAdmin.adminAddress = _adminAddr;
         newAdmin.city = _city;
-        newAdmin.district = _district;
-        newAdmin.state = _state;
+        newAdmin.sub_county = _district;
+        newAdmin.county = _county;
     }
 
 
@@ -95,32 +95,32 @@ contract Registry{
     }
 
 
-    // Admin: registers land
-    function registerLand(string memory _state, string memory _district, string memory _city, uint256 _propertyId, uint _surveyNo, address _owner, uint _marketValue, uint _sqft) external onlyAdmin{
+    // Admin: registers house
+    function registerHouse(string memory _county, string memory _district, string memory _city, uint256 _propertyId, uint _deedNo, address _owner, uint _marketValue, uint _sqft) external onlyAdmin{
         
-        require(keccak256(abi.encodePacked(admins[msg.sender].state)) == keccak256(abi.encodePacked(_state))  
-        && keccak256(abi.encodePacked(admins[msg.sender].district)) == keccak256(abi.encodePacked(_district))
-        && keccak256(abi.encodePacked(admins[msg.sender].city)) == keccak256(abi.encodePacked(_city)), "Admin can only register land of same city.");
+        require(keccak256(abi.encodePacked(admins[msg.sender].county)) == keccak256(abi.encodePacked(_county))  
+        && keccak256(abi.encodePacked(admins[msg.sender].sub_county)) == keccak256(abi.encodePacked(_district))
+        && keccak256(abi.encodePacked(admins[msg.sender].city)) == keccak256(abi.encodePacked(_city)), "Admin can only register house of same city.");
 
-        require(landDetalsMap[_state][_district][_city][_surveyNo].registered == false, "Survey Number already registered!");
+        require(houseDetalsMap[_county][_district][_city][_deedNo].registered == false, "Deed Number already registered!");
 
-        LandDetails storage newLandRegistry = landDetalsMap[_state][_district][_city][_surveyNo];
+        HouseDetails storage newHouseRegistry = houseDetalsMap[_county][_district][_city][_deedNo];
         OwnerOwns storage newOwnerOwns = ownerMapsProperty[_owner][userProfile[_owner].totalIndices];
         
 
-        newLandRegistry.owner = _owner;
-        newLandRegistry.admin = msg.sender;
-        newLandRegistry.propertyId = _propertyId;
-        newLandRegistry.surveyNumber = _surveyNo;
-        newLandRegistry.index = userProfile[_owner].totalIndices;
-        newLandRegistry.registered = true;
-        newLandRegistry.marketValue = _marketValue;
-        newLandRegistry.markAvailable = false;
-        newLandRegistry.sqft = _sqft;
+        newHouseRegistry.owner = _owner;
+        newHouseRegistry.admin = msg.sender;
+        newHouseRegistry.propertyId = _propertyId;
+        newHouseRegistry.deedNumber = _deedNo;
+        newHouseRegistry.index = userProfile[_owner].totalIndices;
+        newHouseRegistry.registered = true;
+        newHouseRegistry.marketValue = _marketValue;
+        newHouseRegistry.markAvailable = false;
+        newHouseRegistry.sqft = _sqft;
 
-        newOwnerOwns.surveyNumber = _surveyNo;
-        newOwnerOwns.state = _state;
-        newOwnerOwns.district = _district;
+        newOwnerOwns.deedNumber = _deedNo;
+        newOwnerOwns.county = _county;
+        newOwnerOwns.sub_county = _district;
         newOwnerOwns.city = _city;
 
         userProfile[_owner].totalIndices++;
@@ -143,35 +143,35 @@ contract Registry{
     // User_1: mark property available
     function markMyPropertyAvailable(uint indexNo) external {
         
-        string memory state = ownerMapsProperty[msg.sender][indexNo].state;
-        string memory district = ownerMapsProperty[msg.sender][indexNo].district;
+        string memory county = ownerMapsProperty[msg.sender][indexNo].county;
+        string memory sub_county = ownerMapsProperty[msg.sender][indexNo].sub_county;
         string memory city = ownerMapsProperty[msg.sender][indexNo].city;
-        uint surveyNumber = ownerMapsProperty[msg.sender][indexNo].surveyNumber;
+        uint deedNumber = ownerMapsProperty[msg.sender][indexNo].deedNumber;
 
-        require(landDetalsMap[state][district][city][surveyNumber].markAvailable == false, "Property already marked available");
+        require(houseDetalsMap[county][sub_county][city][deedNumber].markAvailable == false, "Property already marked available");
 
-        landDetalsMap[state][district][city][surveyNumber].markAvailable = true;
+        houseDetalsMap[county][sub_county][city][deedNumber].markAvailable = true;
     
     }
 
 
     // User_2: Request for buy  **ownerAddress & index = arguements** 
-    function RequestForBuy(string memory _state, string memory _district, string memory _city, uint _surveyNo) external{
+    function RequestForBuy(string memory _county, string memory _district, string memory _city, uint _deedNo) external{
 
-        LandDetails storage thisLandDetail = landDetalsMap[_state][_district][_city][_surveyNo];
-        require(thisLandDetail.markAvailable == true, "This property is NOT marked for sale!");
+        HouseDetails storage thisHouseDetail = houseDetalsMap[_county][_district][_city][_deedNo];
+        require(thisHouseDetail.markAvailable == true, "This property is NOT marked for sale!");
 
-        uint req_serialNum = thisLandDetail.noOfRequests; 
-        thisLandDetail.requests[req_serialNum].whoRequested = msg.sender;
-        thisLandDetail.requests[req_serialNum].reqIndex = userProfile[msg.sender].requestIndices;
-        thisLandDetail.noOfRequests++;
+        uint req_serialNum = thisHouseDetail.noOfRequests; 
+        thisHouseDetail.requests[req_serialNum].whoRequested = msg.sender;
+        thisHouseDetail.requests[req_serialNum].reqIndex = userProfile[msg.sender].requestIndices;
+        thisHouseDetail.noOfRequests++;
 
-        // adding requested land to user_2 profile
-        RequestedLands storage newReqestedLands = requestedLands[msg.sender][userProfile[msg.sender].requestIndices];
-        newReqestedLands.surveyNumber = _surveyNo;
-        newReqestedLands.state = _state;
-        newReqestedLands.district = _district;
-        newReqestedLands.city = _city;
+        // adding requested house to user_2 profile
+        RequestedHouses storage newReqestedHouses = requestedHouses[msg.sender][userProfile[msg.sender].requestIndices];
+        newReqestedHouses.deedNumber = _deedNo;
+        newReqestedHouses.county = _county;
+        newReqestedHouses.sub_county = _district;
+        newReqestedHouses.city = _city;
 
         userProfile[msg.sender].requestIndices++;
 
@@ -181,28 +181,28 @@ contract Registry{
     // User_1: Accept the buy request; sell.
     function AcceptRequest(uint _index, uint _reqNo) external{
 
-        uint _surveyNo = ownerMapsProperty[msg.sender][_index].surveyNumber;
-        string memory _state = ownerMapsProperty[msg.sender][_index].state; 
-        string memory _district = ownerMapsProperty[msg.sender][_index].district;
+        uint _deedNo = ownerMapsProperty[msg.sender][_index].deedNumber;
+        string memory _county = ownerMapsProperty[msg.sender][_index].county; 
+        string memory _district = ownerMapsProperty[msg.sender][_index].sub_county;
         string memory _city = ownerMapsProperty[msg.sender][_index].city;
         
-        // updating LandDetails
-        address newOwner = landDetalsMap[_state][_district][_city][_surveyNo].requests[_reqNo].whoRequested;
-        uint newOwner_reqIndex = landDetalsMap[_state][_district][_city][_surveyNo].requests[_reqNo].reqIndex;
-        uint noOfReq = landDetalsMap[_state][_district][_city][_surveyNo].noOfRequests;
+        // updating HouseDetails
+        address newOwner = houseDetalsMap[_county][_district][_city][_deedNo].requests[_reqNo].whoRequested;
+        uint newOwner_reqIndex = houseDetalsMap[_county][_district][_city][_deedNo].requests[_reqNo].reqIndex;
+        uint noOfReq = houseDetalsMap[_county][_district][_city][_deedNo].noOfRequests;
 
-        // deleting requested land from all requesters AND removing all incoming requests
+        // deleting requested house from all requesters AND removing all incoming requests
         for(uint i=0; i<noOfReq; i++){
-            address requesterAddr = landDetalsMap[_state][_district][_city][_surveyNo].requests[i].whoRequested;
-            uint requester_reqIndx = landDetalsMap[_state][_district][_city][_surveyNo].requests[i].reqIndex;
+            address requesterAddr = houseDetalsMap[_county][_district][_city][_deedNo].requests[i].whoRequested;
+            uint requester_reqIndx = houseDetalsMap[_county][_district][_city][_deedNo].requests[i].reqIndex;
             
-            delete requestedLands[requesterAddr][requester_reqIndx];
-            delete landDetalsMap[_state][_district][_city][_surveyNo].requests[i];
+            delete requestedHouses[requesterAddr][requester_reqIndx];
+            delete houseDetalsMap[_county][_district][_city][_deedNo].requests[i];
         }
 
-        landDetalsMap[_state][_district][_city][_surveyNo].owner = newOwner;
-        landDetalsMap[_state][_district][_city][_surveyNo].markAvailable = false;
-        landDetalsMap[_state][_district][_city][_surveyNo].noOfRequests = 0;
+        houseDetalsMap[_county][_district][_city][_deedNo].owner = newOwner;
+        houseDetalsMap[_county][_district][_city][_deedNo].markAvailable = false;
+        houseDetalsMap[_county][_district][_city][_deedNo].noOfRequests = 0;
 
         // deleting property from user_1's ownerMapsProperty 
         delete ownerMapsProperty[msg.sender][_index];
@@ -211,12 +211,12 @@ contract Registry{
         uint newOwnerTotProp = userProfile[newOwner].totalIndices;
         OwnerOwns storage newOwnerOwns = ownerMapsProperty[newOwner][newOwnerTotProp];
        
-        newOwnerOwns.surveyNumber = _surveyNo;
-        newOwnerOwns.state = _state;
-        newOwnerOwns.district = _district;
+        newOwnerOwns.deedNumber = _deedNo;
+        newOwnerOwns.county = _county;
+        newOwnerOwns.sub_county = _district;
         newOwnerOwns.city = _city;
 
-        landDetalsMap[_state][_district][_city][_surveyNo].index = newOwnerTotProp;
+        houseDetalsMap[_county][_district][_city][_deedNo].index = newOwnerTotProp;
 
         userProfile[newOwner].totalIndices++;
 
@@ -226,52 +226,52 @@ contract Registry{
     
     //******* GETTERS **********
 
-    // return land details 
-    function getLandDetails(string memory _state, string memory _district, string memory _city, uint _surveyNo) external view returns(address, uint256, uint, uint, uint){
+    // return house details 
+    function getHouseDetails(string memory _county, string memory _district, string memory _city, uint _deedNo) external view returns(address, uint256, uint, uint, uint){
         
-        address owner = landDetalsMap[_state][_district][_city][_surveyNo].owner;
-        uint256 propertyid = landDetalsMap[_state][_district][_city][_surveyNo].propertyId;
-        uint indx = landDetalsMap[_state][_district][_city][_surveyNo].index;
-        uint mv = landDetalsMap[_state][_district][_city][_surveyNo].marketValue;
-        uint sqft = landDetalsMap[_state][_district][_city][_surveyNo].sqft;
+        address owner = houseDetalsMap[_county][_district][_city][_deedNo].owner;
+        uint256 propertyid = houseDetalsMap[_county][_district][_city][_deedNo].propertyId;
+        uint indx = houseDetalsMap[_county][_district][_city][_deedNo].index;
+        uint mv = houseDetalsMap[_county][_district][_city][_deedNo].marketValue;
+        uint sqft = houseDetalsMap[_county][_district][_city][_deedNo].sqft;
 
         return(owner, propertyid, indx, mv, sqft);
     }
 
-    function getRequestCnt_propId(string memory _state, string memory _district, string memory _city, uint _surveyNo) external view returns(uint, uint256){
-        uint _noOfRequests = landDetalsMap[_state][_district][_city][_surveyNo].noOfRequests;
-        uint256 _propertyId = landDetalsMap[_state][_district][_city][_surveyNo].propertyId;
+    function getRequestCnt_propId(string memory _county, string memory _district, string memory _city, uint _deedNo) external view returns(uint, uint256){
+        uint _noOfRequests = houseDetalsMap[_county][_district][_city][_deedNo].noOfRequests;
+        uint256 _propertyId = houseDetalsMap[_county][_district][_city][_deedNo].propertyId;
         return(_noOfRequests, _propertyId);
     }
 
-    function getRequesterDetail(string memory _state, string memory _district, string memory _city, uint _surveyNo, uint _reqIndex) external view returns(address){
-        address requester = landDetalsMap[_state][_district][_city][_surveyNo].requests[_reqIndex].whoRequested;
+    function getRequesterDetail(string memory _county, string memory _district, string memory _city, uint _deedNo, uint _reqIndex) external view returns(address){
+        address requester = houseDetalsMap[_county][_district][_city][_deedNo].requests[_reqIndex].whoRequested;
         return(requester);
     }
 
-    function isAvailable(string memory _state, string memory _district, string memory _city, uint _surveyNo) external view returns(bool){
-        bool available = landDetalsMap[_state][_district][_city][_surveyNo].markAvailable;
+    function isAvailable(string memory _county, string memory _district, string memory _city, uint _deedNo) external view returns(bool){
+        bool available = houseDetalsMap[_county][_district][_city][_deedNo].markAvailable;
         return(available);
     }
 
     function getOwnerOwns(uint indx) external view returns(string memory, string memory, string memory, uint){
         
-        uint surveyNo = ownerMapsProperty[msg.sender][indx].surveyNumber;
-        string memory state = ownerMapsProperty[msg.sender][indx].state;
-        string memory district = ownerMapsProperty[msg.sender][indx].district;
+        uint deedNo = ownerMapsProperty[msg.sender][indx].deedNumber;
+        string memory county = ownerMapsProperty[msg.sender][indx].county;
+        string memory sub_county = ownerMapsProperty[msg.sender][indx].sub_county;
         string memory city = ownerMapsProperty[msg.sender][indx].city;
 
-        return(state, district, city, surveyNo);
+        return(county, sub_county, city, deedNo);
     }
 
-    function getRequestedLands(uint indx) external view returns(string memory, string memory, string memory, uint){
+    function getRequestedHouses(uint indx) external view returns(string memory, string memory, string memory, uint){
         
-        uint surveyNo = requestedLands[msg.sender][indx].surveyNumber;
-        string memory state = requestedLands[msg.sender][indx].state;
-        string memory district = requestedLands[msg.sender][indx].district;
-        string memory city = requestedLands[msg.sender][indx].city;
+        uint deedNo = requestedHouses[msg.sender][indx].deedNumber;
+        string memory county = requestedHouses[msg.sender][indx].county;
+        string memory sub_county = requestedHouses[msg.sender][indx].sub_county;
+        string memory city = requestedHouses[msg.sender][indx].city;
 
-        return(state, district, city, surveyNo);
+        return(county, sub_county, city, deedNo);
     }
 
     function getUserProfile() external view returns(string memory, string memory, string memory, uint256, string memory){
@@ -294,16 +294,16 @@ contract Registry{
     }
 
 
-    function didIRequested(string memory _state, string memory _district, string memory _city, uint _surveyNo) external view returns(bool){
+    function didIRequested(string memory _county, string memory _district, string memory _city, uint _deedNo) external view returns(bool){
         
-        LandDetails storage thisLandDetail = landDetalsMap[_state][_district][_city][_surveyNo];
-        uint _noOfRequests = thisLandDetail.noOfRequests;
+        HouseDetails storage thisHouseDetail = houseDetalsMap[_county][_district][_city][_deedNo];
+        uint _noOfRequests = thisHouseDetail.noOfRequests;
 
         if(_noOfRequests == 0) 
             return (false);
 
         for(uint i=0; i<_noOfRequests; i++){
-            if(thisLandDetail.requests[i].whoRequested == msg.sender){
+            if(thisHouseDetail.requests[i].whoRequested == msg.sender){
                 return (true);
             }
         } 

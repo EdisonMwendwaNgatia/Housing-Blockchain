@@ -8,7 +8,7 @@ const Explore = (props) => {
   const account = props.account;
 
   const [explore, setExplore] = useState({
-    state:"", district:"", city:"", surveyNo:""
+    county:"", sub_county:"", city:"", deedNo:""
   })
 
   const [landDetail, setLandDetail] = useState({
@@ -26,11 +26,11 @@ const Explore = (props) => {
   }
 
   const handleOnClick = async () =>{
-    const landDetails = await contract.getLandDetails(explore.state, explore.district, explore.city, explore.surveyNo, {
+    const landDetails = await contract.getHouseDetails(explore.county, explore.sub_county, explore.city, explore.deedNo, {
       from: account
     })
 
-    const isAvaliable = await contract.isAvailable(explore.state, explore.district, explore.city, explore.surveyNo, {
+    const isAvaliable = await contract.isAvailable(explore.county, explore.sub_county, explore.city, explore.deedNo, {
       from: account
     })
 
@@ -39,7 +39,7 @@ const Explore = (props) => {
     const index = landDetails[2].words[0]
     const marketValue = landDetails[3].words[0]
     const sqft = landDetails[4].words[0]
-    const surveyNo = explore.surveyNo
+    const deedNo = explore.deedNo
 
     if(account === owner){
       setIsOwner(true)
@@ -47,7 +47,7 @@ const Explore = (props) => {
     else{
       setIsOwner(false);
       if(isAvaliable){
-        const _didIRequested = await contract.didIRequested(explore.state, explore.district, explore.city, explore.surveyNo,{
+        const _didIRequested = await contract.didIRequested(explore.county, explore.sub_county, explore.city, explore.deedNo,{
           from: account
         })
         
@@ -55,13 +55,13 @@ const Explore = (props) => {
       }
     }
 
-    setLandDetail({owner, propertyId, index, marketValue, sqft, surveyNo})
+    setLandDetail({owner, propertyId, index, marketValue, sqft, deedNo})
     setAvailable(isAvaliable);
     setNoResult(1);
   }
 
   const requestForBuy = async () =>{
-    await contract.RequestForBuy(explore.state, explore.district, explore.city, explore.surveyNo, {
+    await contract.RequestForBuy(explore.county, explore.sub_county, explore.city, explore.deedNo, {
       from: account
     })
 
@@ -81,13 +81,13 @@ const Explore = (props) => {
             <form method='POST' className='admin-form'>
               <div className='form-group'>
                   <label>County</label>
-                  <input type="text" className="form-control" name="state" placeholder="Enter County" 
-                  autoComplete="off" value={explore.state} onChange={onChangeFunc}/>
+                  <input type="text" className="form-control" name="county" placeholder="Enter County" 
+                  autoComplete="off" value={explore.county} onChange={onChangeFunc}/>
               </div>
               <div className='form-group'>
                   <label>Sub-County</label>
-                  <input type="text" className="form-control" name="district" placeholder="Enter Sub-County" 
-                  autoComplete="off" value={explore.district} onChange={onChangeFunc}/>
+                  <input type="text" className="form-control" name="sub_county" placeholder="Enter Sub-County" 
+                  autoComplete="off" value={explore.sub_county} onChange={onChangeFunc}/>
               </div>
             </form>
           </div>
@@ -100,8 +100,8 @@ const Explore = (props) => {
               </div>
               <div className='form-group'>
                   <label>Title deed</label>
-                  <input type="text" className="form-control" name="surveyNo" placeholder="Enter Title Deed" 
-                  autoComplete="off" value={explore.surveyNo} onChange={onChangeFunc}/>
+                  <input type="text" className="form-control" name="deedNo" placeholder="Enter Title Deed" 
+                  autoComplete="off" value={explore.deedNo} onChange={onChangeFunc}/>
               </div>
             </form>
           </div>
@@ -112,7 +112,7 @@ const Explore = (props) => {
 
             owner = {landDetail.owner}
             propertyId = {landDetail.propertyId}
-            surveyNo = {landDetail.surveyNo}
+            deedNo = {landDetail.deedNo}
             marketValue = {landDetail.marketValue}
             sqft = {landDetail.sqft}
             available = {available}
