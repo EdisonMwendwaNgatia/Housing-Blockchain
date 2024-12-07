@@ -84,18 +84,20 @@ useEffect(() =>{
       <Route path='/userprofile/*' element={<UserProfile myWeb3Api={web3Api} account={account} />} />
       <Route path='/' element= 
       {
-      <div className="App">
-          <div className='container mainDiv'>
-                <div className='landingPage-heading-div'>
-                    <img src={emblem} alt="emblem" className="emblem" />
-                    <h1>Decentralized Housing Registration</h1>
-                </div>
+        <div className="App">
+        <div className='container mainDiv'>
+              <div className='landingPage-heading-div'>
+                  <img src={emblem} alt="emblem" className="emblem" />
+                  <h1>Decentralized Housing Registration</h1>
+              </div>
 
-                <p className='welcome-p'>Welcome to online Housing Registration and transfer of entitlement</p>
+              <p className='welcome-p'>Welcome to online Housing Registration and transfer of entitlement</p>
 
-                <button className='landingPage-btn' onClick={connectToEthereum}>Connect to Ethereum</button>
-            </div>
-        </div>
+              <div className="button-container">
+              <button className='landingPage-btn' onClick={connectToEthereum}>Connect to Ethereum</button>
+              </div>
+          </div>
+      </div>
       }/>
     </Routes>
   );

@@ -1970,10 +1970,16 @@
       "links": {},
       "address": "0x1e80a910C17561242F47bAd72178A82dc777a641",
       "transactionHash": "0xa9599e38686648f91f49bf84aae6b5962217c70c4119514c98da8ebf383e0a48"
+    },
+    "1732684737104": {
+      "events": {},
+      "links": {},
+      "address": "0x1dfba4b37CCae513aa9daCaf82E76B09D81A143F",
+      "transactionHash": "0x6a7d18ad78e695dcdc154521c1144cde478d78aadeff62e737d806a6f55aae19"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-11-26T21:21:04.860Z",
+  "updatedAt": "2024-11-27T05:48:05.624Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

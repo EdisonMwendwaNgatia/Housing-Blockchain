@@ -35,16 +35,23 @@
 
 .buy-btn, .mark-available-btn, .accept-req{
     background-color: rgb(28, 199, 28);
+    box-shadow: 0 10px 15px rgba(7, 230, 89, 0.3);
     cursor: pointer;
     outline: none;
 }
+
 
 .req-pending, .marked-available{
     background-color: rgb(158, 235, 158) ;
 }
 
 .no-sale{
-    background-color: red;
+    background-color: #ff0000;
+}
+.no-sale:hover{
+    background-color: #fd8f00;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(233, 42, 8, 0.4);
 }
 
 .no-result-div{
