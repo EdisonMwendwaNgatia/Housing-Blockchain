@@ -1,25 +1,445 @@
-.profile-main-div{
+/* Global Styles */
+.profl-profile-main-div {
     margin-top: 2rem;
+    margin-bottom: 4rem;
+    min-height: 100vh;
     color: white;
+    position: relative;
 }
 
-.profile-main-div .form-group label{
-    margin-top: 1rem;
+/* Header Styles */
+.profl-profile-header {
+    position: relative;
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    padding: 2.5rem;
+    text-align: center;
 }
 
-.profile-main-div label{
+.profl-profile-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="profilegrid" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M 8 0 L 0 0 0 8" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23profilegrid)"/></svg>');
+    opacity: 0.4;
+}
+
+.profl-header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.profl-profile-title {
+    color: #ffffff;
+    margin: 0;
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, #ffffff, #e0f2fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.profl-profile-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.profl-profile-accent {
+    height: 4px;
+    background: linear-gradient(90deg, #06d6a0, #118ab2, #073b4c);
     margin-top: 1.5rem;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
 }
 
-.profile-main-div button{
-    margin-top: 1.8rem;
+.profl-profile-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: profl-shimmer 3s infinite;
 }
 
-.select-gender{
-    width: 90%;
-    padding: 0.6rem;
-    outline: none !important;
-    border-color: rgb(199, 197, 197);
-    border-radius: 5px;
+@keyframes profl-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
 }
 
+/* Container Styles */
+.profl-edit-container,
+.profl-view-container {
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.profl-edit-container::before,
+.profl-view-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+    animation: profl-rotate 25s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes profl-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Header Sections */
+.profl-edit-header,
+.profl-view-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.profl-edit-header h2,
+.profl-view-header h2 {
+    color: #60a5fa;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(96, 165, 250, 0.3);
+}
+
+.profl-edit-divider,
+.profl-view-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #1e40af, #3b82f6, #60a5fa);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+/* Form Styles */
+.profl-form-section,
+.profl-info-grid {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 2rem;
+}
+
+.profl-form-column,
+.profl-info-column {
+    padding: 0 1rem;
+}
+
+.profl-admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.profl-form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.profl-form-label {
+    color: #e0f2fe;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.profl-input-wrapper,
+.profl-select-wrapper {
+    position: relative;
+}
+
+.profl-form-control {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    color: #1a1a1a;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.profl-form-control::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.profl-form-control:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+}
+
+.profl-form-control:hover {
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 1);
+}
+
+.profl-select-gender {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    color: #1a1a1a;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.profl-select-gender:focus,
+.profl-select-gender:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+}
+
+/* Info Display Styles */
+.profl-info-item {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.profl-info-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(96, 165, 250, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+.profl-info-label {
+    color: #bfdbfe;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0 0 0.8rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.profl-info-value {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.profl-address {
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    background: rgba(30, 64, 175, 0.2);
+    padding: 0.8rem;
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+/* Button Styles */
+.profl-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.profl-update-btn {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+    color: #ffffff;
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 180px;
+    justify-content: center;
+}
+
+.profl-update-btn.profl-primary {
+    min-width: 220px;
+}
+
+.profl-cancel-btn {
+    background: linear-gradient(135deg, #6b7280 0%, #9ca3af 50%, #d1d5db 100%);
+    color: #1f2937;
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 15px 35px rgba(107, 114, 128, 0.4);
+    min-width: 140px;
+}
+
+.profl-update-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.profl-update-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.5);
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+}
+
+.profl-cancel-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(107, 114, 128, 0.5);
+    background: linear-gradient(135deg, #4b5563 0%, #6b7280 50%, #9ca3af 100%);
+}
+
+.profl-update-btn:hover::before {
+    left: 100%;
+}
+
+.profl-update-btn:active,
+.profl-cancel-btn:active {
+    transform: translateY(-1px);
+}
+
+.profl-btn-text {
+    font-weight: 700;
+}
+
+.profl-btn-icon {
+    font-size: 1.2rem;
+    animation: profl-pulse 2s infinite;
+}
+
+@keyframes profl-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .profl-profile-title {
+        font-size: 2.2rem;
+    }
+    
+    .profl-profile-subtitle {
+        font-size: 1rem;
+    }
+    
+    .profl-edit-container,
+    .profl-view-container {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .profl-form-column,
+    .profl-info-column {
+        padding: 0 0.5rem;
+    }
+    
+    .profl-admin-form {
+        gap: 1.5rem;
+    }
+    
+    .profl-action-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .profl-update-btn,
+    .profl-cancel-btn {
+        min-width: 200px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .profl-profile-header {
+        padding: 2rem 1rem;
+    }
+    
+    .profl-profile-title {
+        font-size: 1.8rem;
+    }
+    
+    .profl-edit-container,
+    .profl-view-container {
+        padding: 1.5rem 1rem;
+        margin: 0 0.5rem;
+    }
+    
+    .profl-update-btn,
+    .profl-cancel-btn {
+        min-width: 160px;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .profl-info-item {
+        padding: 1rem;
+    }
+    
+    .profl-address {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+}

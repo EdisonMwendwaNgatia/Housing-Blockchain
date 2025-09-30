@@ -12,50 +12,82 @@ const Navbar = (props) => {
       return(
         (props.isAdmin) ? 
           <>
-            <li className={(isActive) ? "active nav-item": "nav-item"}>
-                <NavLink className="nav-link" exact activeClassName="active" to="/admin/">Register House<span className="sr-only">(current)</span></NavLink>
+            <li className={(isActive) ? "knav-active knav-nav-item": "knav-nav-item"}>
+                <NavLink className="knav-nav-link" exact activeClassName="knav-active" to="/admin/">
+                  <span className="knav-link-text">Register House</span>
+                  <span className="knav-sr-only">(current)</span>
+                </NavLink>
             </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" exact activeClassName="active" to="/admin/explore" onClick={() => setActive(false)}>Explore</NavLink>
+            <li className="knav-nav-item">
+                <NavLink className="knav-nav-link" exact activeClassName="knav-active" to="/admin/explore" onClick={() => setActive(false)}>
+                  <span className="knav-link-text">Explore</span>
+                </NavLink>
             </li>
           </>
           :
           <>
-            <li className={(isActive) ? "active nav-item": "nav-item"}>
-                <NavLink className="nav-link" exact activeClassName="active" to="/userprofile/">Profile<span className="sr-only">(current)</span></NavLink>
+            <li className={(isActive) ? "knav-active knav-nav-item": "knav-nav-item"}>
+                <NavLink className="knav-nav-link" exact activeClassName="knav-active" to="/userprofile/">
+                  <span className="knav-link-text">Profile</span>
+                  <span className="knav-sr-only">(current)</span>
+                </NavLink>
             </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" exact activeClassName="active" to="/userprofile/property" onClick={() => setActive(false)}>Property</NavLink>
+            <li className="knav-nav-item">
+                <NavLink className="knav-nav-link" exact activeClassName="knav-active" to="/userprofile/property" onClick={() => setActive(false)}>
+                  <span className="knav-link-text">Property</span>
+                </NavLink>
             </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" exact activeClassName="active" to="/userprofile/requests" onClick={() => setActive(false)}>Requests</NavLink>
+            <li className="knav-nav-item">
+                <NavLink className="knav-nav-link" exact activeClassName="knav-active" to="/userprofile/requests" onClick={() => setActive(false)}>
+                  <span className="knav-link-text">Requests</span>
+                </NavLink>
             </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" exact activeClassName="active" to="/userprofile/requested" onClick={() => setActive(false)}>Requested</NavLink>
+            <li className="knav-nav-item">
+                <NavLink className="knav-nav-link" exact activeClassName="knav-active" to="/userprofile/requested" onClick={() => setActive(false)}>
+                  <span className="knav-link-text">Requested</span>
+                </NavLink>
             </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" exact activeClassName="active" to="/userprofile/explore" onClick={() => setActive(false)}>Explore</NavLink>
+            <li className="knav-nav-item">
+                <NavLink className="knav-nav-link" exact activeClassName="knav-active" to="/userprofile/explore" onClick={() => setActive(false)}>
+                  <span className="knav-link-text">Explore</span>
+                </NavLink>
             </li>
           </>
       )
     }
 
   return (
-    <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light" >
-            <NavLink to='/'>
-                <img src={emblem} alt="emblem" className="emblem"/>
-            </NavLink>
-            <h3>{props.isAdmin ? "Admin" : ""}</h3>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+    <div className="knav-navbar-wrapper">
+        <nav className="knav-navbar knav-navbar-expand-lg knav-navbar-light knav-bg-light" >
+            <div className="knav-brand-section">
+              <NavLink to='/' className="knav-brand-link">
+                  <img src={emblem} alt="emblem" className="knav-emblem"/>
+                  <div className="knav-brand-info">
+                    <span className="knav-brand-title">Kenya Housing</span>
+                    <span className="knav-brand-subtitle">Blockchain System</span>
+                  </div>
+              </NavLink>
+              <div className="knav-admin-badge">
+                {props.isAdmin && (
+                  <span className="knav-admin-label">
+                    <span className="knav-admin-icon">⚡</span>
+                    Admin Dashboard
+                  </span>
+                )}
+              </div>
+            </div>
+            
+            <button className="knav-navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="knav-navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav ml-auto">
+            
+            <div className="knav-collapse knav-navbar-collapse" id="navbarNav">
+                <ul className="knav-navbar-nav knav-ml-auto">
                     <RenderMenu/>
                 </ul>
             </div>
         </nav>
+        <div className="knav-accent-line"></div>
     </div>
   )
 }

@@ -41,16 +41,56 @@ const Requested = (props) => {
 
   }, [])
 
+  const containerStyle = {
+    background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f2027 100%)',
+    minHeight: '100vh',
+    padding: '2rem',
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+  };
+
+  const noResultDivStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '60vh',
+    background: 'rgba(16, 185, 129, 0.05)',
+    border: '1px solid rgba(16, 185, 129, 0.2)',
+    borderRadius: '20px',
+    backdropFilter: 'blur(10px)',
+    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+    position: 'relative',
+    overflow: 'hidden'
+  };
+
+  const noResultStyle = {
+    fontSize: '1.8rem',
+    color: '#10b981',
+    fontWeight: '600',
+    textAlign: 'center',
+    textShadow: '0 2px 4px rgba(16, 185, 129, 0.3)',
+    background: 'linear-gradient(135deg, #10b981, #34d399)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text'
+  };
+
+  const listContainerStyle = {
+    display: 'grid',
+    gap: '2rem',
+    maxWidth: '1200px',
+    margin: '0 auto'
+  };
 
   return (
-    <div className='container'>
+    <div className='container' style={containerStyle}>
         {  
         (length === 0) ? 
-        <div className="no-result-div">
-          <p className='no-result'>No pending requests.</p>
+        <div className="supad-no-result-div" style={noResultDivStyle}>
+          <p className='supad-no-result' style={noResultStyle}>No pending requests.</p>
         </div>
         :
-          requestedList.map((details, index) =>{
+        <div style={listContainerStyle}>
+          {requestedList.map((details, index) =>{
             return(
               <DisplayRequested
                  
@@ -67,7 +107,8 @@ const Requested = (props) => {
 
               />
             )
-          })
+          })}
+        </div>
         } 
     </div>
   )
