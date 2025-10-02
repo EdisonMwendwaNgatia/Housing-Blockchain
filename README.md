@@ -1,6 +1,6 @@
-# Decentralized House Registration
+# Crypto-Powered Affordable Housing
 
-Blockchain based House Registration and transfer of entitlement system where the house ownership and all its details are stored in the Blockchain with zero chances of forgery in ownership.
+A blockchain-based platform for managing affordable housing programs using cryptocurrency. This project aims to bring transparency and efficiency to affordable housing by leveraging the power of decentralized technology. This project introduces cryptocurrency to the BomaYangu affordable housing programme.
 
 **Demo Video** =
 https://www.youtube.com/watch?v=gnWecTcvbP4
@@ -11,4 +11,3 @@ Tools used:
 3. Truffle and Web3.js
 4. Ganache used as a local blockchain.
 5. Metamask wallet.
-

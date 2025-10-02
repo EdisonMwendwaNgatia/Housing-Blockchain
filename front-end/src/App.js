@@ -88,7 +88,7 @@ useEffect(() =>{
         <div className='container mainDiv'>
               <div className='landingPage-heading-div'>
                   <img src={emblem} alt="emblem" className="emblem" />
-                  <h1>Decentralized Housing Registration</h1>
+                  <h1>Crypto-Powered Affordable Housing</h1>
               </div>
 
               <p className='welcome-p'>Welcome to online Housing Registration and transfer of entitlement</p>

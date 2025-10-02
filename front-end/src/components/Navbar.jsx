@@ -63,7 +63,7 @@ const Navbar = (props) => {
               <NavLink to='/' className="knav-brand-link">
                   <img src={emblem} alt="emblem" className="knav-emblem"/>
                   <div className="knav-brand-info">
-                    <span className="knav-brand-title">Kenya Housing</span>
+                    <span className="knav-brand-title">Crypto-Powered Affordable Housing</span>
                     <span className="knav-brand-subtitle">Blockchain System</span>
                   </div>
               </NavLink>
